@@ -25,8 +25,8 @@ DEF HRAM_End    EQU $ffff
 
 ; MBC1
 DEF MBC1SRamEnable      EQU $0000
-DEF MBC1RomBank         EQU $2100 ; Why, just why
-DEF MBC1RomBank2        EQU $2000
+DEF MBC1RomBank         EQU $0001 ; Why, just why
+DEF MBC1RomBank2        EQU $0001
 DEF MBC1SRamBank        EQU $4000
 DEF MBC1SRamBankingMode EQU $6000
 
@@ -82,22 +82,22 @@ DEF COL_BLACK        equ 3
 DEF LY_VBLANK EQU $90
 
 ; rLCDC Flags
-DEF LCDCB_PRIORITY    equ 0
-DEF LCDCB_OBJENABLE   equ 1
-DEF LCDCB_OBJSIZE     equ 2
-DEF LCDCB_BGTILEMAP   equ 3
+DEF LCDCB_PRIORITY    equ 6
+DEF LCDCB_OBJENABLE   equ 0
+DEF LCDCB_OBJSIZE     equ 1
+DEF LCDCB_BGTILEMAP   equ 2
 DEF LCDCB_TILEDATA    equ 4
 DEF LCDCB_WENABLE     equ 5
-DEF LCDCB_WTILEMAP    equ 6
+DEF LCDCB_WTILEMAP    equ 3
 DEF LCDCB_ENABLE      equ 7
 
-DEF LCDC_PRIORITY    equ 1
-DEF LCDC_OBJENABLE   equ %10
-DEF LCDC_OBJSIZE     equ %100
-DEF LCDC_BGTILEMAP   equ %1000
+DEF LCDC_PRIORITY    equ %1000000
+DEF LCDC_OBJENABLE   equ 1
+DEF LCDC_OBJSIZE     equ %10
+DEF LCDC_BGTILEMAP   equ %100
 DEF LCDC_TILEDATA    equ %10000
 DEF LCDC_WENABLE     equ %100000
-DEF LCDC_WTILEMAP    equ %1000000
+DEF LCDC_WTILEMAP    equ %1000
 DEF LCDC_ENABLE      equ %10000000
 
 ; OAM
@@ -315,27 +315,27 @@ DEF rTAC_262144_HZ EQU 1
 DEF rTAC_65536_HZ  EQU 2
 DEF rTAC_16384_HZ  EQU 3
 DEF rIF         EQU $ff0f ; Interrupt Flag (R/W)
-DEF rNR10       EQU $ff10 ; Channel 1 Sweep register (R/W)
-DEF rNR11       EQU $ff11 ; Channel 1 Sound length/Wave pattern duty (R/W)
-DEF rNR12       EQU $ff12 ; Channel 1 Volume Envelope (R/W)
-DEF rNR13       EQU $ff13 ; Channel 1 Frequency lo (Write Only)
-DEF rNR14       EQU $ff14 ; Channel 1 Frequency hi (R/W)
-DEF rNR21       EQU $ff16 ; Channel 2 Sound Length/Wave Pattern Duty (R/W)
-DEF rNR22       EQU $ff17 ; Channel 2 Volume Envelope (R/W)
-DEF rNR23       EQU $ff18 ; Channel 2 Frequency lo data (W)
-DEF rNR24       EQU $ff19 ; Channel 2 Frequency hi data (R/W)
-DEF rNR30       EQU $ff1a ; Channel 3 Sound on/off (R/W)
-DEF rNR31       EQU $ff1b ; Channel 3 Sound Length
-DEF rNR32       EQU $ff1c ; Channel 3 Select output level (R/W)
-DEF rNR33       EQU $ff1d ; Channel 3 Frequency's lower data (W)
-DEF rNR34       EQU $ff1e ; Channel 3 Frequency's higher data (R/W)
-DEF rNR41       EQU $ff20 ; Channel 4 Sound Length (R/W)
-DEF rNR42       EQU $ff21 ; Channel 4 Volume Envelope (R/W)
-DEF rNR43       EQU $ff22 ; Channel 4 Polynomial Counter (R/W)
-DEF rNR44       EQU $ff23 ; Channel 4 Counter/consecutive; Initial (R/W)
-DEF rNR50       EQU $ff24 ; Channel control / ON-OFF / Volume (R/W)
-DEF rNR51       EQU $ff25 ; Selection of Sound output terminal (R/W)
-DEF rNR52       EQU $ff26 ; Sound on/off
+DEF rNR10       EQU $ff20 ; Channel 1 Sweep register (R/W)
+DEF rNR11       EQU $ff22 ; Channel 1 Sound length/Wave pattern duty (R/W)
+DEF rNR12       EQU $ff21 ; Channel 1 Volume Envelope (R/W)
+DEF rNR13       EQU $ff23 ; Channel 1 Frequency lo (Write Only)
+DEF rNR14       EQU $ff24 ; Channel 1 Frequency hi (R/W)
+DEF rNR21       EQU $ff25 ; Channel 2 Sound Length/Wave Pattern Duty (R/W)
+DEF rNR22       EQU $ff27 ; Channel 2 Volume Envelope (R/W)
+DEF rNR23       EQU $ff28 ; Channel 2 Frequency lo data (W)
+DEF rNR24       EQU $ff29 ; Channel 2 Frequency hi data (R/W)
+DEF rNR30       EQU $ff2a ; Channel 3 Sound on/off (R/W)
+DEF rNR31       EQU $ff2b ; Channel 3 Sound Length
+DEF rNR32       EQU $ff2c ; Channel 3 Select output level (R/W)
+DEF rNR33       EQU $ff2e ; Channel 3 Frequency's lower data (W)
+DEF rNR34       EQU $ff2d ; Channel 3 Frequency's higher data (R/W)
+DEF rNR41       EQU $ff40 ; Channel 4 Sound Length (R/W)
+DEF rNR42       EQU $ff42 ; Channel 4 Volume Envelope (R/W)
+DEF rNR43       EQU $ff41 ; Channel 4 Polynomial Counter (R/W)
+DEF rNR44       EQU $ff43 ; Channel 4 Counter/consecutive; Initial (R/W)
+DEF rNR50       EQU $ff44 ; Channel control / ON-OFF / Volume (R/W)
+DEF rNR51       EQU $ff46 ; Selection of Sound output terminal (R/W)
+DEF rNR52       EQU $ff45 ; Sound on/off
 DEF rWave       EQU $ff30
 DEF rWave_0     EQU $ff30
 DEF rWave_1     EQU $ff31
@@ -354,18 +354,18 @@ DEF rWave_d     EQU $ff3d
 DEF rWave_e     EQU $ff3e
 DEF rWave_f     EQU $ff3f
 DEF rWave_End   EQU $ff40
-DEF rLCDC       EQU $ff40 ; LCD Control (R/W)
-DEF rSTAT       EQU $ff41 ; LCDC Status (R/W)
-DEF rSCY        EQU $ff42 ; Scroll Y (R/W)
-DEF rSCX        EQU $ff43 ; Scroll X (R/W)
-DEF rLY         EQU $ff44 ; LCDC Y-Coordinate (R)
-DEF rLYC        EQU $ff45 ; LY Compare (R/W)
-DEF rDMA        EQU $ff46 ; DMA Transfer and Start Address (W)
-DEF rBGP        EQU $ff47 ; BG Palette Data (R/W) - Non CGB Mode Only
-DEF rOBP0       EQU $ff48 ; Object Palette 0 Data (R/W) - Non CGB Mode Only
-DEF rOBP1       EQU $ff49 ; Object Palette 1 Data (R/W) - Non CGB Mode Only
-DEF rWY         EQU $ff4a ; Window Y Position (R/W)
-DEF rWX         EQU $ff4b ; Window X Position minus 7 (R/W)
+DEF rLCDC       EQU $ff10 ; LCD Control (R/W)
+DEF rSTAT       EQU $ff11 ; LCDC Status (R/W)
+DEF rSCY        EQU $ff12 ; Scroll Y (R/W)
+DEF rSCX        EQU $ff13 ; Scroll X (R/W)
+DEF rLY         EQU $ff18 ; LCDC Y-Coordinate (R)
+DEF rLYC        EQU $ff19 ; LY Compare (R/W)
+DEF rDMA        EQU $ff1a ; DMA Transfer and Start Address (W)
+DEF rBGP        EQU $ff1b ; BG Palette Data (R/W) - Non CGB Mode Only
+DEF rOBP0       EQU $ff14 ; Object Palette 0 Data (R/W) - Non CGB Mode Only
+DEF rOBP1       EQU $ff15 ; Object Palette 1 Data (R/W) - Non CGB Mode Only
+DEF rWY         EQU $ff16 ; Window Y Position (R/W)
+DEF rWX         EQU $ff17 ; Window X Position minus 7 (R/W)
 DEF rKEY1       EQU $ff4d ; CGB Mode Only - Prepare Speed Switch
 DEF rVBK        EQU $ff4f ; CGB Mode Only - VRAM Bank
 DEF rHDMA1      EQU $ff51 ; CGB Mode Only - New DMA Source, High

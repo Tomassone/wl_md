@@ -3,7 +3,7 @@ trash/
 archive/
 
 # build output
-wl.gb
+wl.md2s
 wl.map
 wl.o
 wl.sav
@@ -11,7 +11,7 @@ wl.sym
 wl.sn*
 
 # provide your own comparision rom
-original.gb
+original.md2s
 original.sav
 original.sym
 
