@@ -205,7 +205,7 @@ ENDC
 	ld   [sSubMode], a
 	ld   a, $E1
 	ldh  [rBGP], a
-	ld   a, $83
+	ld   a, $C1
 	ldh  [rLCDC], a
 	ld   a, $80					; Show the Course Screen for $80 frames
 	ld   [sCourseScrTimer], a
@@ -278,7 +278,7 @@ CourseSel_Init:
 	ld   a, $E1
 	ldh  [rBGP], a
 	ldh  [rOBP0], a
-	ld   a, $83
+	ld   a, $C1
 	ldh  [rLCDC], a
 	ret
 	
