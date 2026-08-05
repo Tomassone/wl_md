@@ -9327,7 +9327,7 @@ Mode_Title_SaveSelectInit:
 	ldh  [rOBP0], a
 	xor  a
 	ldh  [rOBP1], a
-	ld   a, $83
+	ld   a, $C1
 	ldh  [rLCDC], a
 	ld   a, BGM_SAVESELECT
 	ld   [sBGMSet], a

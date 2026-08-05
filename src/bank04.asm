@@ -64,7 +64,7 @@ Sound_StopAll:
 ; To clear the currently played sounds from the registers (for this frame, unless playback is also stopped)
 Sound_StopAllRegs:
 	; Set volume envelope
-	ld   a, %00001000
+	ld   a, %10000000
 	ldh  [rNR12], a
 	ldh  [rNR22], a
 	ldh  [rNR42], a
@@ -751,7 +751,7 @@ Sound_StopSFX1:
 	ld   [sSFX1], a			; Stop SFX
 	ld   [sBGMChSFX1], a	; Unmark mute flag
 Sound_StopCh1Regs:
-	ld   a, %00001000		; Reset regs
+	ld   a, %10000000		; Reset regs
 	ldh  [rNR12], a
 	ld   a, %10000000
 	ldh  [rNR14], a
@@ -763,7 +763,7 @@ Sound_StopSFX2:;R
 	ld   [sSFX2], a
 	ld   [sBGMChSFX2], a
 Sound_StopCh2Regs:;C
-	ld   a, %00001000
+	ld   a, %10000000
 	ldh  [rNR22], a
 	ld   a, %10000000
 	ldh  [rNR24], a
@@ -784,7 +784,7 @@ Sound_StopSFX4:
 	ld   [sSFX4], a
 	ld   [sBGMChSFX4], a
 Sound_StopCh4Regs:;J
-	ld   a, %00001000
+	ld   a, %10000000
 	ldh  [rNR42], a
 	ld   a, %10000000
 	ldh  [rNR44], a
@@ -1073,7 +1073,7 @@ SFX_Pause7:
 ; IN:
 ; - A: Envelope option
 Sound_SFX1SetEnv:
-	ld   [sSFXNR12], a
+	ld   [sSFXNR12], a ; to fix
 	ldh  [rNR12], a
 	jr   Sound_SFX1CopyRegs
 ; =============== Sound_SFX1SetFreq ===============
@@ -1093,7 +1093,7 @@ Sound_SFX1CopyRegs:
 	ldh  [rNR10], a
 	ld   a, [sSFXNR11]
 	ldh  [rNR11], a
-	ld   a, [sSFXNR12]
+	ld   a, [sSFXNR12] ; to fix
 	ldh  [rNR12], a
 	ld   a, [sSFXNR13]
 	ldh  [rNR13], a
@@ -1309,7 +1309,7 @@ ENDM
 .setCh1None:
 	xor  a					; Assume blank and mute the channel
 	ld   [sBGMCh1On], a
-	ld   a, $08
+	ld   a, $80
 	ldh  [rNR12], a
 	ld   a, $80
 	ldh  [rNR14], a
@@ -1322,7 +1322,7 @@ ENDM
 .setCh2None:
 	xor  a
 	ld   [sBGMCh2On], a
-	ld   a, $08
+	ld   a, $80
 	ldh  [rNR22], a
 	ld   a, $80
 	ldh  [rNR24], a
@@ -1404,7 +1404,7 @@ Sound_SetBGMCh1:
 	ld   [sBGMNR11], a
 .skipOptRegs:
 	ld   a, [sBGMCurChReg2]
-	ld   [sBGMNR12], a
+	ld   [sBGMNR12], a ; to fix
 	ld   a, [sBGMCurChReg3]
 	ld   [sBGMNR13], a
 	ld   a, [sBGMCurChReg4]
@@ -1419,7 +1419,7 @@ Sound_SetBGMCh1:
 	ldh  [rNR10], a
 	ld   a, [sBGMNR11]
 	ldh  [rNR11], a
-	ld   a, [sBGMNR12]
+	ld   a, [sBGMNR12] ; to fix
 	ldh  [rNR12], a
 	ld   a, [sBGMNR13]
 	ldh  [rNR13], a
@@ -1508,7 +1508,7 @@ Sound_SetBGMCh2:
 	;--
 	
 .copyRegs:;R
-	ld   a, [sBGMNR22]
+	ld   a, [sBGMNR22] ; to fix
 	ldh  [rNR22], a
 	ld   a, [sBGMNR23]
 	ldh  [rNR23], a
@@ -1623,9 +1623,9 @@ Sound_SetBGMCh4:
 	ld   a, [sBGMCurChReg1]
 	ldh  [rNR41], a
 	ld   a, [sBGMCurChReg2]
-	ldh  [rNR42], a
+	ldh  [rNR42], a ; to fix
 	ld   a, [sBGMCurChReg3]
-	ldh  [rNR43], a
+	ldh  [rNR43], a  ; to fix
 	ld   [sBGM_Unused_CurChReg3Copy], a
 	ld   a, [sBGMCurChReg4]
 	ldh  [rNR44], a
@@ -2451,7 +2451,7 @@ Sound_Unused_DoBGMPitchCmd_RemFreq:
 Sound_SetBGMCh1_MuteCh1:
 	xor  a
 	ld   [sBGMCh1On], a
-	ld   a, $08
+	ld   a, $80
 	ldh  [rNR12], a
 	ld   [sBGMNR12], a
 	ld   a, $80
@@ -2462,7 +2462,7 @@ Sound_SetBGMCh1_MuteCh1:
 Sound_SetBGMCh2_MuteCh2:
 	xor  a
 	ld   [sBGMCh2On], a
-	ld   a, $08
+	ld   a, $80
 	ldh  [rNR22], a
 	ld   [sBGMNR22], a
 	ld   a, $80
@@ -2481,7 +2481,7 @@ Sound_SetBGMCh3_MuteCh3:
 Sound_SetBGMCh4_MuteCh4:
 	xor  a
 	ld   [sBGMCh4On], a
-	ld   a, $08
+	ld   a, $80
 	ldh  [rNR42], a
 	ld   [sBGM_Unused_NR42Copy], a
 	ld   a, $80
@@ -2523,7 +2523,7 @@ Sound_ClearBGMRAM:
 	ldh  [rNR10], a
 	ldh  [rNR30], a
 	ld   [sBGMAct], a
-	ld   a, $08
+	ld   a, $80
 	ldh  [rNR12], a
 	ldh  [rNR22], a
 	ldh  [rNR42], a
@@ -4691,23 +4691,23 @@ SFX4_12_Next:
 	ld   de, SFX4_121
 	jp   Sound_SetSFXCh4
 .freq27:
-	ld   a, $27
+	ld   a, $72
 	ldh  [rNR43], a
 	ret
 .freq35:
-	ld   a, $35
+	ld   a, $53
 	ldh  [rNR43], a
 	ret
 .freq37:
-	ld   a, $37
+	ld   a, $73
 	ldh  [rNR43], a
 	ret
 .freq45:
-	ld   a, $45
+	ld   a, $54
 	ldh  [rNR43], a
 	ret
 .freq47:
-	ld   a, $47
+	ld   a, $74
 	ldh  [rNR43], a
 	ret
 .freq55:
@@ -4715,11 +4715,11 @@ SFX4_12_Next:
 	ldh  [rNR43], a
 	ret
 .freq57:
-	ld   a, $57
+	ld   a, $75
 	ldh  [rNR43], a
 	ret
 .freq65:
-	ld   a, $65
+	ld   a, $56
 	ldh  [rNR43], a
 	ret
 .freq66:
@@ -4727,7 +4727,7 @@ SFX4_12_Next:
 	ldh  [rNR43], a
 	ret
 .freq67:
-	ld   a, $67
+	ld   a, $76
 	ldh  [rNR43], a
 	ret
 .set0:
