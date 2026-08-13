@@ -1,2 +1,2 @@
-@call _build config-original wl original.md2s
+@call _build config-original wl original.md25s
 pause

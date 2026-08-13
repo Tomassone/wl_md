@@ -1,7 +1,7 @@
 # wl
 Disassembly of Super Mario Land 3: Wario Land
 
-This will build a bit-perfect ROM of Wario Land. You can verify this by providing a ROM named "Wario Land - Super Mario Land 3 (W) [!].md2s" as "original.md2s".
+This will build a bit-perfect ROM of Wario Land. You can verify this by providing a ROM named "Wario Land - Super Mario Land 3 (W) [!].md25s" as "original.md25s".
 
 -------------
 
