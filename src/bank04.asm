@@ -4963,18 +4963,18 @@ SFX4_Empty:
 ;
 Sound_BGMNoiseTable:
 	db $00,$00,$00,$C0;X ; [TCRF] Unused for the same reason as Sound_BGMPitchTable
-	db $38,$09,$34,$C0;X
-	db $38,$19,$33,$C0;X
-	db $13,$46,$10,$C0
-	db $00,$80,$10,$C0
-	db $00,$57,$60,$80;X
-	db $09,$31,$40,$C0
-	db $00,$23,$40,$80
-	db $00,$51,$07,$80;X
-	db $00,$71,$18,$80;X
-	db $00,$A2,$18,$80
-	db $3A,$81,$10,$C0
-	db $3A,$91,$1F,$C0
+	db $38,$90,$43,$C0;X
+	db $38,$91,$33,$C0;X
+	db $13,$64,$01,$C0
+	db $00,$08,$01,$C0
+	db $00,$75,$06,$80;X
+	db $09,$13,$04,$C0
+	db $00,$32,$04,$80
+	db $00,$15,$70,$80;X
+	db $00,$17,$81,$80;X
+	db $00,$2A,$81,$80
+	db $3A,$18,$01,$C0
+	db $3A,$19,$F1,$C0
 
 ; =============== Sound_BGMPitchCmdTable ===============
 ; Frequency offset tables for BGMPP commands.
