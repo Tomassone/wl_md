@@ -1073,7 +1073,8 @@ SFX_Pause7:
 ; IN:
 ; - A: Envelope option
 Sound_SFX1SetEnv:
-	ld   [sSFXNR12], a ; to fix
+	swap a
+	ld   [sSFXNR12], a
 	ldh  [rNR12], a
 	jr   Sound_SFX1CopyRegs
 ; =============== Sound_SFX1SetFreq ===============
@@ -1093,7 +1094,8 @@ Sound_SFX1CopyRegs:
 	ldh  [rNR10], a
 	ld   a, [sSFXNR11]
 	ldh  [rNR11], a
-	ld   a, [sSFXNR12] ; to fix
+	ld   a, [sSFXNR12]
+	swap a
 	ldh  [rNR12], a
 	ld   a, [sSFXNR13]
 	ldh  [rNR13], a
@@ -1404,7 +1406,8 @@ Sound_SetBGMCh1:
 	ld   [sBGMNR11], a
 .skipOptRegs:
 	ld   a, [sBGMCurChReg2]
-	ld   [sBGMNR12], a ; to fix
+	swap a
+	ld   [sBGMNR12], a
 	ld   a, [sBGMCurChReg3]
 	ld   [sBGMNR13], a
 	ld   a, [sBGMCurChReg4]
@@ -1419,7 +1422,8 @@ Sound_SetBGMCh1:
 	ldh  [rNR10], a
 	ld   a, [sBGMNR11]
 	ldh  [rNR11], a
-	ld   a, [sBGMNR12] ; to fix
+	ld   a, [sBGMNR12]
+	swap a
 	ldh  [rNR12], a
 	ld   a, [sBGMNR13]
 	ldh  [rNR13], a
@@ -1508,7 +1512,8 @@ Sound_SetBGMCh2:
 	;--
 	
 .copyRegs:;R
-	ld   a, [sBGMNR22] ; to fix
+	ld   a, [sBGMNR22]
+	swap a
 	ldh  [rNR22], a
 	ld   a, [sBGMNR23]
 	ldh  [rNR23], a
@@ -1623,9 +1628,11 @@ Sound_SetBGMCh4:
 	ld   a, [sBGMCurChReg1]
 	ldh  [rNR41], a
 	ld   a, [sBGMCurChReg2]
-	ldh  [rNR42], a ; to fix
+	swap a
+	ldh  [rNR42], a
 	ld   a, [sBGMCurChReg3]
-	ldh  [rNR43], a  ; to fix
+	swap a
+	ldh  [rNR43], a
 	ld   [sBGM_Unused_CurChReg3Copy], a
 	ld   a, [sBGMCurChReg4]
 	ldh  [rNR44], a
@@ -13591,5 +13598,3 @@ BGMCmdTable_7FCB:
 	snddb $64
 	sndloop
 	sndend
-; =============== END OF BANK ===============
-	mIncJunk "L047FE3"

@@ -1,3 +1,5 @@
+# make SOURCE=config-original FILENAME=wl COMPARISON=original.md25s
+
 # RGBDS toolchain
 RGBASM  := rgbds/rgbasm
 RGBLINK := rgbds/rgblink
