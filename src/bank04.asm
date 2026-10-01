@@ -492,15 +492,6 @@ Sound_StopChannels:
 	call Sound_StopCh3Regs
 	jp   Sound_StopCh4Regs
 	
-; =============== Sound_Unused_StopBGM ===============
-; [TCRF] Unreferenced subroutine.
-; Stops music playback in an "unsafe" way.
-; You're meant to set sBGMSet to BGM_NONE to stop music playback normally.
-Sound_Unused_StopBGM:
-	xor  a
-	ld   [sBGM], a
-	ret
-	
 ; =============== Sound_DoCurrentBGM ===============
 ; Handles the currently playing BGM.
 Sound_DoCurrentBGM:
@@ -844,36 +835,81 @@ MACRO mSound_SetCh
 	jr   Sound_SetCh
 ENDM
 
-;                             TO    FROM     Reg.Count
-Sound_SetSFXCh1: mSound_SetCh rNR10,sSFXNR10,$05
-Sound_SetSFXCh2: mSound_SetCh rNR21,sSFXNR21,$04
-Sound_SetSFXCh3: mSound_SetCh rNR30,sSFXNR30,$05 ; [TCRF] No SFX3, so nothing calls it
-Sound_SetSFXCh4: mSound_SetCh rNR41,sSFXNR41,$04
-	
-; =============== Sound_SetCh ===============
-; Updates all the registers for the specified channel with the provided data.
-;
-; Note that before calling this you are expected to manually
-; push HL to stack.
+; Mega Duck port: the original Sound_SetCh copied data to *consecutive*
+; registers, but the Mega Duck shuffles sound register addresses per channel
+; (CH1: NR11/NR12 swapped; CH2: NR51 sits between NR21 and NR22 so the trigger
+; NR24 was never written; CH4: NR42/NR43 swapped). Also NR12/NR22/NR42/NR43
+; contents are nybble-swapped on MD. So each channel is written explicitly
+; here. SRAM mirrors keep the original GB byte order; the existing
+; next-handler code (Sound_SFX1CopyRegs etc.) keeps working unchanged.
 
-; IN:
-; - HL: Ptr to first sound register of a channel
-; - BC: Ptr to the SRAM copy of the above
-; - DE: Ptr to channel data
-; - sNRSize: Data size (depends on how many registers a channel has)
-Sound_SetCh:
-	ld   a, [de]			; Get snd data byte
-	ldi  [hl], a			; Copy it over to the register
-	ld   [bc], a			; and the SRAM mirror
-	inc  de					; Ptr++
-	inc  bc
-	
-	ld   a, [sNRSize]		; BytesLeft--
-	dec  a
-	ld   [sNRSize], a
-	jr   nz, Sound_SetCh	; Copy next if we haven't finished
-	;--
-	pop  hl
+; DE = 5 bytes: NR10, NR11, NR12, NR13, NR14 data
+Sound_SetSFXCh1:
+	ld   hl, sSFXNR10
+	ld   b, 5
+.mirror:
+	ld   a, [de]
+	ld   [hl+], a
+	inc  de
+	dec  b
+	jr   nz, .mirror
+	ld   hl, sSFXNR10		; HL is past the mirror after the loop -- reset it
+	ld   a, [hl+]			; NR10 data
+	ldh  [rNR10], a
+	ld   a, [hl+]			; NR11 data
+	ldh  [rNR11], a
+	ld   a, [hl+]			; NR12 data
+	swap a
+	ldh  [rNR12], a
+	ld   a, [hl+]			; NR13 data
+	ldh  [rNR13], a
+	ld   a, [hl]			; NR14 data
+	ldh  [rNR14], a
+	ret
+
+; DE = 4 bytes: NR21, NR22, NR23, NR24 data
+Sound_SetSFXCh2:
+	ld   hl, sSFXNR21
+	ld   b, 4
+.mirror:
+	ld   a, [de]
+	ld   [hl+], a
+	inc  de
+	dec  b
+	jr   nz, .mirror
+	ld   hl, sSFXNR21		; HL is past the mirror after the loop -- reset it
+	ld   a, [hl+]			; NR21 data ($FF25, NOT $FF26=NR51!)
+	ldh  [rNR21], a
+	ld   a, [hl+]			; NR22 data
+	swap a
+	ldh  [rNR22], a
+	ld   a, [hl+]			; NR23 data
+	ldh  [rNR23], a
+	ld   a, [hl]			; NR24 data (trigger, written last)
+	ldh  [rNR24], a
+	ret
+
+; DE = 4 bytes: NR41, NR42, NR43, NR44 data
+Sound_SetSFXCh4:
+	ld   hl, sSFXNR41
+	ld   b, 4
+.mirror:
+	ld   a, [de]
+	ld   [hl+], a
+	inc  de
+	dec  b
+	jr   nz, .mirror
+	ld   hl, sSFXNR41		; HL is past the mirror after the loop -- reset it
+	ld   a, [hl+]			; NR41 data
+	ldh  [rNR41], a
+	ld   a, [hl+]			; NR42 data
+	swap a
+	ldh  [rNR42], a
+	ld   a, [hl+]			; NR43 data
+	swap a
+	ldh  [rNR43], a
+	ld   a, [hl]			; NR44 data (trigger, written last)
+	ldh  [rNR44], a
 	ret
 ; =============== Sound_StartPause ===============
 ; This subroutine handles the sound at the beginning of a game pause.
