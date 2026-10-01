@@ -1,4 +1,4 @@
-# make SOURCE=config-original FILENAME=wl COMPARISON=original.md25s
+# make SOURCE=config-original FILENAME=wl COMPARISON=original.mbc5
 
 # RGBDS toolchain
 RGBASM  := rgbds/rgbasm
@@ -6,7 +6,7 @@ RGBLINK := rgbds/rgblink
 RGBFIX  := rgbds/rgbfix
 
 # Build parameters — pass via command line:
-#   make SOURCE=config-original FILENAME=wl COMPARISON=original.md25s [NOFIX=1]
+#   make SOURCE=config-original FILENAME=wl COMPARISON=original.mbc5 [NOFIX=1]
 SOURCE     ?=
 FILENAME   ?=
 COMPARISON ?=
@@ -35,13 +35,13 @@ else
 all: build
 
 # Final target: fix, compare, done
-build: $(FILENAME).md25s
+build: $(FILENAME).mbc5
 ifeq ($(NOFIX),)
 	@echo "Fixing header checksum..."
-	$(RGBFIX) -v $(FILENAME).md25s -p 0
+	$(RGBFIX) -v $(FILENAME).mbc5 -p 0
 endif
 	@if [ -n "$(COMPARISON)" ] && [ -f "$(COMPARISON)" ]; then \
-		cmp -l "$(FILENAME).md25s" "$(COMPARISON)" || true; \
+		cmp -l "$(FILENAME).mbc5" "$(COMPARISON)" || true; \
 	fi
 
 # Assembly step
@@ -55,9 +55,9 @@ $(FILENAME).o: $(SOURCE).asm
 		  exit 1; }
 
 # Link step
-$(FILENAME).md25s: $(FILENAME).o
+$(FILENAME).mbc5: $(FILENAME).o
 	@echo "Linking..."
-	@$(RGBLINK) -v -m $(FILENAME).map -n $(FILENAME).sym -p 0 -d -o $(FILENAME).md25s $(FILENAME).o || \
+	@$(RGBLINK) -v -m $(FILENAME).map -n $(FILENAME).sym -p 0 -d -o $(FILENAME).mbc5 $(FILENAME).o || \
 		{ echo "Error while linking."; \
 		  echo "=========================="; \
 		  echo "  Build failure."; \
@@ -68,6 +68,6 @@ $(FILENAME).md25s: $(FILENAME).o
 	@echo "=========================="
 
 clean:
-	rm -f $(FILENAME).o $(FILENAME).map $(FILENAME).sym $(FILENAME).md25s
+	rm -f $(FILENAME).o $(FILENAME).map $(FILENAME).sym $(FILENAME).mbc5
 
 endif

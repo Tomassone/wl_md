@@ -25,8 +25,8 @@ DEF HRAM_End    EQU $ffff
 
 ; MBC1
 DEF MBC1SRamEnable      EQU $0000
-DEF MBC1RomBank         EQU $0001 ; Why, just why
-DEF MBC1RomBank2        EQU $0001
+DEF MBC1RomBank         EQU $2100 ; Why, just why
+DEF MBC1RomBank2        EQU $2000
 DEF MBC1SRamBank        EQU $4000
 DEF MBC1SRamBankingMode EQU $6000
 
